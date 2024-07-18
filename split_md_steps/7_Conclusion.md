@@ -1,5 +1,9 @@
-## Conclusion
+## Congratulations!
 
-Cryptography used to be an esoteric field, but every time a cryptographic concept has been made readily available with an intuitive interface, that concept has revolutionized the digital world, and the way we communicate with each other. Zero knowledge stands to do the same. Any time you are tempted to supply some information to another party, ask yourself "Is it sufficient to merely prove that I have this information, or prove some property of it?" If so, you may wish to convert it to using a ZK proof. This is far more widespread than you might think, and future generations will look back in horror at the way we have all been doxing ourselves just to access basic services.
+You have just used all the necessary tools that underpin a new paradigm of decentralized identity. These powerful standards and cryptographic techniques will enable individuals to have tighter control of their credentials and still broadly participate wherever credentials and identity mechanisms are necessary.
 
-While the example above is just a toy, it hopefully shows how you can build zero knowlege solutions today, to solve real world problems.
+Specifically, you saw how an issuer might sign a digital document and transfer it to the credential holder.  The credential holder, an end user, then applied the readily available infrastructure and software provided by Sindri and GCP to produce a verifiable presentation which they passed to a verifier.  Finally, the verifier was able to substantiate that the holder possessed a valid credential without seeing the signed data firsthand.
+
+### Next Steps
+* Learn more about [Zero-knowledge Solutions](https://sindri.app/docs/introduction/) 
+* Dive into the [Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/)
