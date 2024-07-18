@@ -11,7 +11,7 @@ import (
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/consensys/gnark/backend/witness"
 	"github.com/consensys/gnark/frontend"
-	"github.com/microcontroller/vc-sindri-app/bls-verify/circuit"
+	bls12377 "github.com/consensys/gnark/std/algebra/native/sw_bls12377"
 )
 
 type ProofDetailResponse struct {
@@ -33,6 +33,14 @@ func exitOnError(err error, action string) {
 		fmt.Printf("Error %s: %v\n", action, err)
 		os.Exit(1)
 	}
+}
+
+type Circuit struct {
+	// Your circuit inputs go here.
+	Sig bls12377.G1Affine
+	G2  bls12377.G2Affine `gnark:",public"`
+	Hm  bls12377.G1Affine `gnark:",public"`
+	Pk  bls12377.G2Affine `gnark:",public"`
 }
 
 func main() {
@@ -72,7 +80,7 @@ func main() {
 	exitOnError(err, "reading verifying key")
 
 	// Construct the witness based on the public inputs.
-	schema, err := frontend.NewSchema(&circuit.Circuit{})
+	schema, err := frontend.NewSchema(&Circuit{})
 	exitOnError(err, "constructing schema")
 	publicWitness, err := witness.New(ecc.BW6_761.ScalarField())
 	exitOnError(err, "constructing witness")

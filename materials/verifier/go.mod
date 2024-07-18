@@ -1,13 +1,10 @@
-module github.com/microcontroller/vc-sindri-app/bls-verify
+module verify
 
 go 1.21
-
-toolchain go1.22.3
 
 require (
 	github.com/consensys/gnark v0.10.0
 	github.com/consensys/gnark-crypto v0.12.2-0.20240215234832-d72fcb379d3e
-        github.com/microcontroller/vc-sindri-app/bls-verify/circuit v1.1.1
 )
 
 require (
@@ -17,7 +14,8 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fxamacker/cbor/v2 v2.5.0 // indirect
 	github.com/google/pprof v0.0.0-20230817174616-7a8ec2ada47b // indirect
-	github.com/kr/text v0.2.0 // indirect
+	github.com/ingonyama-zk/icicle v0.0.0-20230928131117-97f0079e5c71 // indirect
+	github.com/ingonyama-zk/iciclegnark v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
@@ -31,5 +29,3 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
-replace github.com/microcontroller/vc-sindri-app/bls-verify/circuit => ./circuit
-
