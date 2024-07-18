@@ -6,15 +6,14 @@ Verifiable credentials are a new form of digital credential that offers more fle
 
 We'll be using the Gnark framework from Consensys to produce Groth16 proofs, which minimize proof sizes and verifier work, making them particularly attractive for Web3 applications.
 
-## What you'll learn
+### What you'll learn
 
 - What verifiable credentials are and how they differ from traditional credentials
 - How to construct a verifiable credential using BLS signatures
 - How to generate zero knowledge proofs for credential verification
 - How to verify zero knowledge proofs for credentials
 
-## Prerequisites
+### Prerequisites
 
 - Basic understanding of cryptography concepts
 - Familiarity with JSON and command-line interfaces
-- A Sindri account (free to create for new users [here](link))

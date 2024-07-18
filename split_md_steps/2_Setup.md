@@ -23,3 +23,8 @@ $ sindri login
 ? Password: <your_password>
 ? New API Key Name: (machinename-sdk)
 ```
+
+5. You will also need the Golang source code to execute certain steps.  You can retrieve that code via
+```
+git clone public-materials-repo
+```
