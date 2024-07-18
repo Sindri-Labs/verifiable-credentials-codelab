@@ -1,6 +1,6 @@
 module github.com/microcontroller/vc-sindri-app/issuer
 
-go 1.22.3
+go 1.23
 
 require github.com/consensys/gnark-crypto v0.12.2-0.20240215234832-d72fcb379d3e
 

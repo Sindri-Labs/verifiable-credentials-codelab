@@ -4,9 +4,9 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
+	"math/big"
 	"os"
 	"time"
-	"math/big"
 
 	"github.com/consensys/gnark-crypto/ecc/bls12-377"
 	"github.com/consensys/gnark-crypto/ecc/bls12-377/fr"
@@ -51,8 +51,8 @@ func getIssuerKey(issuerKeyPath string) (*big.Int, *bls12377.G2Affine, error) {
 	_, err := os.Stat(issuerKeyPath)
 
 	var sk1 []byte
-	var sk  big.Int
-	var pk  *bls12377.G2Affine
+	var sk big.Int
+	var pk *bls12377.G2Affine
 
 	if os.IsNotExist(err) {
 		g2Order := fr.Modulus()
@@ -71,7 +71,7 @@ func getIssuerKey(issuerKeyPath string) (*big.Int, *bls12377.G2Affine, error) {
 			return nil, nil, err
 		}
 		sk.Set(ski)
-	
+
 		pk = new(bls12377.G2Affine).ScalarMultiplicationBase(&sk)
 
 		// Write the secret key to the issuer key file
@@ -119,7 +119,7 @@ func main() {
 	exitOnError(err, "parsing unsigned credential JSON")
 
 	// Extract verifiableCredential.credentialSubject from the JSON
-	var json_vc  map[string]interface{} = credential["verifiableCredential"].(map[string]interface{})
+	var json_vc map[string]interface{} = credential
 	var json_sub map[string]interface{} = json_vc["credentialSubject"].(map[string]interface{})
 
 	// Base64 encode the issuer public key
@@ -154,7 +154,7 @@ func main() {
 
 	// Iterate over the credential subject fields, signing each one
 	for key, value := range json_sub {
- 		// Sign a "key: value" statement with the issuer key
+		// Sign a "key: value" statement with the issuer key
 		msg := fmt.Sprintf("%s: %s", key, value)
 		sig, hm, err := bls_sign(sk, []byte(msg))
 		exitOnError(err, "signing credential field")
@@ -166,13 +166,13 @@ func main() {
 			json_witness = make(map[string]interface{})
 			json_witnesses[key] = json_witness
 		}
-		
+
 		// Marshal the G2 generator in a way we can read back in
-		g2j  := make(map[string]interface{})
+		g2j := make(map[string]interface{})
 		g2jx := make(map[string]interface{})
 		g2jy := make(map[string]interface{})
-		g2j["X"]       = g2jx
-		g2j["Y"]       = g2jy
+		g2j["X"] = g2jx
+		g2j["Y"] = g2jy
 		g2jx["A0"] = g2Gen.X.A0.String()
 		g2jx["A1"] = g2Gen.X.A1.String()
 		g2jy["A0"] = g2Gen.Y.A0.String()
@@ -182,12 +182,12 @@ func main() {
 		hmj := make(map[string]interface{})
 		hmj["X"] = hm.X.String()
 		hmj["Y"] = hm.Y.String()
-		
+
 		// Load the witness object with the necessary components
 		json_witness["Sig"] = sig
-		json_witness["G2"]  = g2j
-		json_witness["Hm"]  = hmj
-		json_witness["Pk"]  = pk
+		json_witness["G2"] = g2j
+		json_witness["Hm"] = hmj
+		json_witness["Pk"] = pk
 
 		// Verify the signature, just to be sure
 		res, err := bls_verify(pk, []byte(msg), sig)
@@ -195,7 +195,7 @@ func main() {
 		if !res {
 			fmt.Printf("Signature[%s] NOT verified\n", key)
 		}
-	
+
 		// Create a key under the proof object for the signature
 		json_proof[key] = sig
 	}
@@ -209,7 +209,7 @@ func main() {
 	defer signedCredentialFile.Close()
 
 	// Write the signed credential to the file
-	signedCredentialData, err := json.Marshal(credential)
+	signedCredentialData, err := json.MarshalIndent(credential, "", "  ")
 	exitOnError(err, "marshalling signed credential JSON")
 	_, err = signedCredentialFile.Write(signedCredentialData)
 	exitOnError(err, "writing signed credential file")
