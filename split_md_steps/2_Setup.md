@@ -25,6 +25,7 @@ $ sindri login
 ```
 
 5. You will also need the Golang source code to execute certain steps.  You can retrieve that code via
-```
+```bash
+# alter this command once public repo exists
 git clone public-materials-repo
 ```
