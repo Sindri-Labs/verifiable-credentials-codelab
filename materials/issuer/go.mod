@@ -1,4 +1,4 @@
-module github.com/microcontroller/vc-sindri-app/issuer
+module issuer
 
 go 1.23
 

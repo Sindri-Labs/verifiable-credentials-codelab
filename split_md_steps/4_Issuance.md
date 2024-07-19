@@ -12,7 +12,7 @@ Recall that a university will transfer a verifiable credential to a holder that 
 ```
 
 To do so, run the following commands:
-```
+```bash
 cd issuer
 go run issuer.go issuer_sk.txt credential.json
 ```
