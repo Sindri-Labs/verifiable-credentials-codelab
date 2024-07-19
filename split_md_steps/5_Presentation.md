@@ -5,9 +5,9 @@ This is the most important perspective to examine within our codelab. Here we wi
 NOTE: This functionality just scratches the surface of what zero-knowledge proofs can achieve.  In a deeper dive, we could use zero-knowledge to produce a proof that a person obtained a degree from a Tier 1 university, but not disclose which one.
 
 While the previous and next sections use local Golang code to perform their portions, the credential holder generally has much more limited compute.
-After all, in our example the holder may be using a mobile app to interact with the verifier in order to purchase something from their store.  Sindri's zero-knowledge proving as a service, powered by Google's reliable cloud infrastructure, supply a necessary piece of the puzzle in order to make verifiable presentations a mainstream technology.
+After all, in our example, the holder may be using a mobile app to interact with the verifier in order to purchase something from their store.  Sindri's zero-knowledge proving API and infrastructure automation suite, powered by Google's reliable cloud, supply a necessary piece of the puzzle in order to make verifiable presentations a mainstream technology.
 
-In the following codeblock, we will obtain a copy of the "degree verifier" circuit from Sindri's public circuit repository.  We may then compile the circuit in order to prepare for the next phase, which produces the zero-knowledge proof.
+In the following codeblock, we will obtain a copy of the "degree verifier" circuit from Sindri's public circuit repository.  We will then compile the circuit in order to prepare for the next phase, which produces the zero-knowledge proof.
 ```
 sindri clone 21d6f894-4584-4515-a938-e1783a945d30 ./holder
 cd holder
