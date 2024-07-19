@@ -37,6 +37,5 @@ sindri proof create -i credential.json > credential-proof.json
 The code block above created a proof that the user has a signed piece of data corresponding to the university's public key `pk`.  If you inspect the `credential-proof.json` file that was produced, you'll notice that the `Sig` field is empty.  This is the major development that zero-knowledge has enabled.  In the next step, our verifier will be able to take the `credential-proof.json` file and convince themselves that the user has a signed degree, even if they withhold the signature itself.
 
 
-
-
-SINDRI DRAFT NOTE: alter the circuit id above with finished version of sindri/verifiable-credential project.
+---
+SINDRI DRAFT NOTE: alter the circuit id above with finished version of sindri/verifiable-credential project once we publish
