@@ -16,7 +16,7 @@ To do so, run the following commands:
 cd issuer
 go run issuer.go issuer_sk.txt credential.json
 ```
-The output should indicate that you have produced a file called `credential-signed.json` which has added some new fields to `credential.json`. Namely, you should see the following values inside the "witnesses" section: `G2`, `Hm`, `Pk`, and `Sig`.  These are all the key fields required in the [BLS Signature Scheme](https://en.wikipedia.org/wiki/BLS_digital_signature).
+The output should indicate that you have produced a file called `credential-signed.json` which has added some new fields to `credential.json`, and another file called `credential-witness-1-degreeType.json` containing the following values: `G2`, `Hm`, `Pk`, and `Sig`.  These are all the key fields required in the [BLS Signature Scheme](https://en.wikipedia.org/wiki/BLS_digital_signature).
 
 * `G2` is the public generator of an elliptic curve group,
 * `Hm` is the hash of the message (the credential contents),

@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/consensys/gnark-crypto/ecc/bls12-377"
+	bls12377 "github.com/consensys/gnark-crypto/ecc/bls12-377"
 	"github.com/consensys/gnark-crypto/ecc/bls12-377/fr"
 )
 
@@ -152,7 +152,11 @@ func main() {
 	// We don't expect anybody else to adopt this scheme, labeling it as a toy
 	json_proof["type"] = "ToyBls12377Signature2020OnFields"
 
+	// Trim the .json extension from the unsigned credential file name first
+	unsignedCredentialName := unsignedCredentialPath[:len(unsignedCredentialPath)-5]
+
 	// Iterate over the credential subject fields, signing each one
+	idx := 1
 	for key, value := range json_sub {
 		// Sign a "key: value" statement with the issuer key
 		msg := fmt.Sprintf("%s: %s", key, value)
@@ -196,20 +200,33 @@ func main() {
 			fmt.Printf("Signature[%s] NOT verified\n", key)
 		}
 
+		// Save a copy of the witness in its own file
+		witnessPath := fmt.Sprintf("%s-witness-%d-%s.json", unsignedCredentialName, idx, key)
+		witnessFile, err := os.Create(witnessPath)
+		exitOnError(err, "creating witness file")
+		defer witnessFile.Close()
+
+		// Write the signed credential to the file
+		witnessData, err := json.MarshalIndent(json_witness, "", "\t")
+		exitOnError(err, "marshalling witness JSON")
+		_, err = witnessFile.Write(witnessData)
+		exitOnError(err, "writing witness JSON file")
+
+		fmt.Printf("Witness %d written to %s\n", idx, witnessPath)
+		idx += 1
+
 		// Create a key under the proof object for the signature
 		json_proof[key] = sig
 	}
 
 	// Write the signed credential to a new file at <credential>-signed.json
-	// Trim the .json extension from the unsigned credential file name first
-	unsignedCredentialName := unsignedCredentialPath[:len(unsignedCredentialPath)-5]
 	signedCredentialPath := unsignedCredentialName + "-signed.json"
 	signedCredentialFile, err := os.Create(signedCredentialPath)
 	exitOnError(err, "creating signed credential file")
 	defer signedCredentialFile.Close()
 
 	// Write the signed credential to the file
-	signedCredentialData, err := json.MarshalIndent(credential, "", "  ")
+	signedCredentialData, err := json.MarshalIndent(credential, "", "\t")
 	exitOnError(err, "marshalling signed credential JSON")
 	_, err = signedCredentialFile.Write(signedCredentialData)
 	exitOnError(err, "writing signed credential file")
