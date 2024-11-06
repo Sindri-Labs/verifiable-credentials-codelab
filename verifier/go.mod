@@ -1,4 +1,4 @@
-module verify
+module bls-verify
 
 go 1.21
 
