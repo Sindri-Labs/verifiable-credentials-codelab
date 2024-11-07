@@ -1,0 +1,4 @@
+issuer/credential-signed.json
+issuer/credential-witness-1-degreeType.json
+holder/
+verifier/bls-verify
